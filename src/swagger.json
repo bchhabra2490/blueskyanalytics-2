@@ -1,0 +1,121 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "BlueSky Analytics Coding Task",
+        "version": "1.0.0",
+        "title": "Tasks API",
+        "contact": {
+            "email": "bchhabra2490@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    },
+    "schemes": ["http"],
+    "host": "localhost:3000",
+    "basePath": "/",
+    "paths" : {
+        "/states" : {
+            "get" : {
+                "summary" : "Get all the states",
+                "description": "Get all the states",
+                "produces": ["application/json"],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/statesDataResponse"
+                            }
+                        }
+                    },
+                    "503": {
+                        "description": "Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/ServerErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/state/{id}" : {
+            "get" : {
+                "summary" : "Get all the population belong to the state",
+                "description": "Get all the population belong to the state",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "state id whose data needs to be fetched",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/populationDataResponse"
+                            }
+                        }
+                    },
+                    "503": {
+                        "description": "Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/ServerErrorResponse"
+                        }
+                    }
+                }
+            }
+        }
+    }, 
+    "definitions": {
+        "ServerErrorResponse": {
+            "type": "object",
+            "properties": {
+                "statusCode": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+
+        }
+    },
+    "components":{
+        "schemas": {
+            "populationDataResponse":{
+                "type":"object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                   },
+                   "firstName": {
+                       "type": "string"
+                   },
+                   "lastName": {
+                       "type": "string"
+                   }
+                }
+            },
+            "statesDataResponse":{
+                "type":"object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                   },
+                   "name": {
+                       "type": "string"
+                   }
+                } 
+            }
+        }
+    }
+}

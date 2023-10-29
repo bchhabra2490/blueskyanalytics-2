@@ -1,0 +1,23 @@
+version: "2"
+services:
+    postgis:
+        image: postgis/postgis
+        container_name: postgisdb
+        ports:
+            - "5432:5432"
+        volumes:
+          - dbdata:/var/lib/postgresql
+        environment:
+            - POSTGRES_PASSWORD=mysecretpassword
+        networks: 
+            - main-app-db-network
+    api:
+      build: .
+      ports:
+        - "3000:3000"
+volumes:
+  dbdata:
+networks:
+    main-app-db-network:
+        name: main-app-db-network
+        driver: bridge
